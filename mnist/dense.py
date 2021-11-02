@@ -24,7 +24,7 @@ class MnistDataset(Dataset):
         self._x, self._y = self._read_data(image_file, label_file)
 
     def __getitem__(self, idx):
-        return self._x[idx].div(255).float().view(-1), self._y[idx].long()
+        return self._x[idx].div(255).float(), self._y[idx].long()
 
     def __len__(self):
         return len(self._y)
@@ -33,7 +33,7 @@ class MnistDataset(Dataset):
         with gzip.open(label_file, 'rb') as f:
             labels = np.frombuffer(f.read(), dtype=np.uint8, offset=8)
         with gzip.open(image_file, 'rb') as f:
-            images = np.frombuffer(f.read(), dtype=np.uint8, offset=16).reshape(len(labels), 784)
+            images = np.frombuffer(f.read(), dtype=np.uint8, offset=16).reshape(len(labels), 28, 28)
         return torch.from_numpy(images), torch.from_numpy(labels)
 
 class LinearModel(torch.nn.Module):
@@ -46,6 +46,7 @@ class LinearModel(torch.nn.Module):
         self.relu = torch.nn.ReLU()
 
     def forward(self, x):
+        x = x.view(-1, 784)
         x = self.relu(self.linear1(x))
         x = self.relu(self.linear2(x))
         x = self.relu(self.linear3(x))
