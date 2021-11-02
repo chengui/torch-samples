@@ -94,7 +94,7 @@ def plot_loss(loss, acc):
     plt.savefig('loss.png')
 
 for epoch in range(epochs):
-    print(f'Epoch {epoch} --------------------')
+    print(f'Epoch {epoch} {"":->60s}')
     train(trainloader, model, criterion, optimizer)
     test(testloader, model, criterion)
 
