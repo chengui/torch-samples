@@ -103,10 +103,10 @@ def test(dataloader, model, loss_fn):
             loss = loss_fn(y_pred, y)
             test_loss += loss.item()
             acc = (y_pred.argmax(1)==y).float().sum()
-            test_acc += 100*acc.item()
+            test_acc += acc.item()
     test_loss /= len(dataloader)
     loss_iter.append(test_loss)
-    test_acc /= len(dataloader.dataset)
+    test_acc /= len(dataloader.dataset) / 100
     acc_iter.append(test_acc)
     print(f'Test Error: acc={test_acc:>0.3f}, loss={test_loss:>7f}')
 
