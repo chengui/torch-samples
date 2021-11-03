@@ -1,0 +1,38 @@
+{
+  "name": "fashion-mnist",
+  "info": "Fashion-MNIST is a dataset comprising of 28×28 grayscale images of 70,000 fashion products from 10 categories, with 7,000 images per category. The training set has 60,000 images and the test set has 10,000 images. Fashion-MNIST shares the same image size, data format and the structure of training and testing splits with the original MNIST.",
+  "data": [
+    {
+      "name": "train-images",
+      "url": "http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz",
+      "mirror": [
+        "https://github.com/zalandoresearch/fashion-mnist/blob/master/data/fashion/train-images-idx3-ubyte.gz"
+      ],
+      "md5": "8d4fb7e6c68d591d4c3dfef9ec88bf0d"
+    },
+    {
+      "name": "train-labels",
+      "url": "http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz",
+      "mirror": [
+        "https://github.com/zalandoresearch/fashion-mnist/blob/master/data/fashion/train-labels-idx1-ubyte.gz"
+      ],
+      "md5": "25c81989df183df01b3e8a0aad5dffbe"
+    },
+    {
+      "name": "test-images",
+      "url": "http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz",
+      "mirror": [
+        "https://github.com/zalandoresearch/fashion-mnist/blob/master/data/fashion/t10k-images-idx3-ubyte.gz"
+      ],
+      "md5": "bef4ecab320f06d8554ea6380940ec79"
+    },
+    {
+      "name": "test-labels",
+      "url": "http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz",
+      "mirror": [
+        "https://github.com/zalandoresearch/fashion-mnist/blob/master/data/fashion/t10k-labels-idx1-ubyte.gz"
+      ],
+      "md5": "bb300cfdad3c16e7a12a480ee83cd310"
+    }
+  ]
+}
