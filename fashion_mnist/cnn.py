@@ -1,4 +1,5 @@
 import os
+import time
 import gzip
 import torch
 import numpy as np
@@ -136,8 +137,12 @@ if pre_train:
 
 for epoch in range(num_epochs):
     print(f'Epoch {epoch} {"":->60s}')
+    start = time.time()
     train(trainloader, model, criterion, optimizer)
+    time1 = time.time()
     test(testloader, model, criterion)
+    time2 = time.time()
+    print(f'Time Cost: train={time1-start:.1f}s, test={time2-time1:.1f}s')
     if (epoch+1) % 10 == 0:
         save_checkpoint('model.pth', model, optimizer)
 
