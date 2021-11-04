@@ -86,7 +86,7 @@ class FashionMnistDataset(Dataset):
             labels = np.frombuffer(f.read(), dtype=np.uint8, offset=8)
         with gzip.open(image_file, 'rb') as f:
             images = np.frombuffer(f.read(), dtype=np.uint8, offset=16).reshape(len(labels), 1, 28, 28)
-        return torch.from_numpy(images), torch.from_numpy(labels)
+        return torch.from_numpy(np.array(images)), torch.from_numpy(np.array(labels))
 
 class AlexNet(nn.Module):
     def __init__(self, params, num_classes=10):

@@ -73,7 +73,7 @@ class FashionMnistDataset(Dataset):
             labels = np.frombuffer(f.read(), dtype=np.uint8, offset=8)
         with gzip.open(image_file, 'rb') as f:
             images = np.frombuffer(f.read(), dtype=np.uint8, offset=16).reshape(len(labels), 1, 28, 28)
-        return torch.from_numpy(images), torch.from_numpy(labels)
+        return torch.from_numpy(np.array(images)), torch.from_numpy(np.array(labels))
 
 def vgg_block(num_convs, in_channels, out_channels):
     layers = []
