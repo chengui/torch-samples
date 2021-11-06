@@ -1,0 +1,13 @@
+{
+  "name": "hotdog",
+  "info": "",
+  "data": [
+    {
+      "name": "train-test-images",
+      "url": "https://apache-mxnet.s3-accelerate.amazonaws.com/gluon/dataset/hotdog.zip",
+      "mirror": [
+      ],
+      "md5": "93828c671f87022da20687aed376ab2b"
+    }
+  ]
+}
