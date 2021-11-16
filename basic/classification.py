@@ -60,14 +60,20 @@ def test_epoch(net, dataloader, loss_fn, optimizer, device):
 def plot(iter_loss, iter_acc, fname='epoch.png'):
     plt.subplot(211)
     plt.ylabel('Loss')
-    plt.plot(range(len(iter_loss)), [i[0] for i in iter_loss], linestyle='-', label='train loss')
-    plt.plot(range(len(iter_loss)), [i[1] for i in iter_loss], linestyle='--', label='test loss')
+    if isinstance(iter_loss[0], tuple):
+        plt.plot(range(len(iter_loss)), [i[0] for i in iter_loss], linestyle='-', label='train loss')
+        plt.plot(range(len(iter_loss)), [i[1] for i in iter_loss], linestyle='--', label='test loss')
+    else:
+        plt.plot(range(len(iter_loss)), iter_loss, linestyle='-', label='train loss')
     plt.legend(loc='upper right')
     plt.subplot(212)
     plt.xlabel('Epoch')
     plt.ylabel('Acc')
-    plt.plot(range(len(iter_acc)), [i[0] for i in iter_acc], linestyle='-', label='train acc')
-    plt.plot(range(len(iter_acc)), [i[1] for i in iter_acc], linestyle='--', label='test acc')
+    if isinstance(iter_acc[0], tuple):
+        plt.plot(range(len(iter_acc)), [i[0] for i in iter_acc], linestyle='-', label='train acc')
+        plt.plot(range(len(iter_acc)), [i[1] for i in iter_acc], linestyle='--', label='test acc')
+    else:
+        plt.plot(range(len(iter_acc)), iter_acc, linestyle='-', label='train loss')
     plt.legend(loc='lower right')
     plt.savefig(fname)
 
