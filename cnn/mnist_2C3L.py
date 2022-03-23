@@ -1,5 +1,10 @@
+import os
 import glob
 import torch
+from torch import nn, optim
+from torch.utils.data import DataLoader
+from torchvision.datasets import MNIST
+from torchvision.transforms import ToTensor
 import matplotlib.pyplot as plt
 
 
@@ -26,7 +31,7 @@ def train_epoch(net, dataloader, loss_fn, optimizer, device):
     net.train()
     train_loss, train_acc = 0., 0.
     num_batches, num_samples = len(dataloader), len(dataloader.dataset)
-    batch_size, batch_print = dataloader.batch_size, num_batches // 5
+    _, batch_print = dataloader.batch_size, num_batches // 5
     for idx, (x, y) in enumerate(dataloader):
         x, y = x.to(device), y.to(device)
         y_hat = net(x)
@@ -95,3 +100,35 @@ def train(net, trainloader, testloader, loss_fn, optimizer, checkpoint=10, model
         if checkpoint > 0 and (epoch+1) % checkpoint == 0:
             save_checkpoint(net, optimizer, modelname, epoch+1)
     plot(iter_loss, iter_acc)
+
+num_epochs = 10
+batch_size = 64
+learning_rate = 1e-2
+
+net = nn.Sequential(
+    nn.Conv2d(1, 10, kernel_size=5),
+    nn.MaxPool2d(kernel_size=2),
+    nn.ReLU(),
+    nn.Conv2d(10, 20, kernel_size=5),
+    nn.MaxPool2d(kernel_size=2),
+    nn.ReLU(),
+    nn.Flatten(),
+    nn.Linear(20*4*4, 512),
+    nn.ReLU(),
+    nn.Linear(512, 128),
+    nn.ReLU(),
+    nn.Linear(128, 10)
+)
+
+root_dir = os.path.expanduser('~/dataset/mnist')
+
+trainset = MNIST(root=root_dir, train=True, download=True, transform=ToTensor())
+trainloader = DataLoader(dataset=trainset, batch_size=batch_size, num_workers=8)
+
+testset = MNIST(root=root_dir, train=False, download=True, transform=ToTensor())
+testloader = DataLoader(dataset=testset, batch_size=batch_size, num_workers=8)
+
+loss_fn = nn.CrossEntropyLoss()
+optimizer = optim.SGD(net.parameters(), lr=learning_rate)
+
+train(net, trainloader, testloader, loss_fn, optimizer)
